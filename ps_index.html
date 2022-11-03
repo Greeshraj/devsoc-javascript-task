@@ -1,0 +1,45 @@
+<html>
+<body>
+    <form onsubmit="clickHandler(event)"> 
+        <!-- click to clickHandler -->
+        <input type="text" id="name" placeholder="Your Name">
+        <input type="submit">
+    </form>
+    <div id="container">Hello</div>     
+    <div id="cont"></div>
+    <div id="clock"></div>   
+    <!-- define new div to show time  -->
+</body>
+<script>
+    function clickHandler(e) {
+        e.preventDefault();
+        var x = document.getElementById('name')
+        var section = document.getElementById('container');
+            //  cont is not reqired i use container
+        section.innerHTML = x.value;
+
+    }
+    let g;
+
+    try {
+        fetch("https://raw.githubusercontent.com/EthanRBrown/rrad/master/addresses-us-1000.json")
+            .then(res => res.json())   
+            // .json() is used not only json
+            .then(data => {
+                console.log(data.addresses[0]);  //array index was missing
+                g = data.addresses[0].address1;
+                // console.log(g)
+                document.getElementById('cont').innerHTML = g;
+            })
+            .catch(error => console.log("error"))
+    } catch (error) { console.log(err); };
+
+    const clock = document.getElementById('clock')
+    setInterval(() => {
+        const date = new Date();
+        clock.innerHTML = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    }, "1500");
+    // gethour to gethours and so  on all changes 
+
+</script>
+</html>
